@@ -80,7 +80,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
      * Audio and video tracks can be created with names. This feature is useful for categorizing
      * tracks of participants. For example, if one participant publishes a video track with
      * ScreenCapturer and CameraCapturer with the names "screen" and "camera" respectively then
-     * other participants can use RemoteVideoTrack#getName to determine which video track is
+     * other participants can use RemoteVideoTrack#getName to deterswitch_audio_action_fabmine which video track is
      * produced from the other participant's screen or camera.
      */
     private static final String LOCAL_AUDIO_TRACK_NAME = "microphone";
@@ -128,7 +128,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
     private FloatingActionButton switchCameraActionFab;
     private FloatingActionButton localVideoActionFab;
     private FloatingActionButton muteActionFab;
-    private FloatingActionButton switchAudioActionFab;
+    //private FloatingActionButton switchAudioActionFab;
     private FloatingActionButton attachment_fab;
     private AudioManager audioManager;
     private TextView txtUnreadMessages;
@@ -164,7 +164,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
         localVideoActionFab = findViewById(FAKE_R.getId("local_video_action_fab"));
         muteActionFab = findViewById(FAKE_R.getId("mute_action_fab"));
         attachment_fab = findViewById(FAKE_R.getId("attachment_fab"));
-        switchAudioActionFab = findViewById(FAKE_R.getId("switch_audio_action_fab"));
+        //switchAudioActionFab = findViewById(FAKE_R.getId("switch_audio_action_fab"));
 
         /*
          * Enable changing the volume using the up/down keys during a conversation
@@ -435,7 +435,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
             switchCameraActionFab.setBackgroundTintList(color);
             localVideoActionFab.setBackgroundTintList(color);
             muteActionFab.setBackgroundTintList(color);
-            switchAudioActionFab.setBackgroundTintList(color);
+            //switchAudioActionFab.setBackgroundTintList(color);
         }
 
         switchCameraActionFab.show();
@@ -446,15 +446,15 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
         muteActionFab.setOnClickListener(muteClickListener());
         attachment_fab.show();
         attachment_fab.setOnClickListener(attachmentClickListener());
-        switchAudioActionFab.show();
-        switchAudioActionFab.setOnClickListener(switchAudioClickListener());
+        //switchAudioActionFab.show();
+        //switchAudioActionFab.setOnClickListener(switchAudioClickListener());
     }
 
     /*
      * The actions performed during disconnect.
      */
     private void setDisconnectAction() {
-        connectActionFab.setImageDrawable(ContextCompat.getDrawable(this, FAKE_R.getDrawable("ic_call_end_white_24px")));
+        connectActionFab.setImageDrawable(ContextCompat.getDrawable(this, FAKE_R.getDrawable("ic_call_white_24px")));
         connectActionFab.show();
         connectActionFab.setOnClickListener(disconnectClickListener());
     }
@@ -870,8 +870,8 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
                 }
                 int icon = audioManager.isSpeakerphoneOn() ?
                         FAKE_R.getDrawable("ic_phonelink_ring_white_24dp") : FAKE_R.getDrawable("ic_volume_headhphones_white_24dp");
-                switchAudioActionFab.setImageDrawable(ContextCompat.getDrawable(
-                        TwilioVideoActivity.this, icon));
+                /*switchAudioActionFab.setImageDrawable(ContextCompat.getDrawable(
+                        TwilioVideoActivity.this, icon));*/
             }
         };
     }

@@ -15,7 +15,9 @@
         android:paddingStart="30dp"
         android:paddingTop="15dp"
         android:paddingEnd="25dp"
+        android:visibility="gone"
         android:paddingBottom="15dp">
+        
 
         <ImageView
             android:id="@+id/app_logo"
@@ -114,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@drawable/unread_message_badge"
+                android:backgroundTint="#FF8A00"
                 android:elevation="8dp"
                 android:paddingStart="10dp"
                 android:paddingTop="3dp"

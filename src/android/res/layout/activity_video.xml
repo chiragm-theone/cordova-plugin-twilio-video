@@ -15,7 +15,6 @@
         android:paddingStart="30dp"
         android:paddingTop="15dp"
         android:paddingEnd="25dp"
-        android:visibility="gone"
         android:paddingBottom="15dp">
         
 
@@ -41,7 +40,7 @@
             android:layout_toStartOf="@id/profile_image"
             android:layout_toEndOf="@id/app_logo">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +54,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_user_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

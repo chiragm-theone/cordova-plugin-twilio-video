@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.twilio.chat.Channel;
 import com.twilio.chat.ChannelListener;
@@ -68,11 +69,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import static org.apache.cordova.twiliovideo.CallEvent.ATTACHMENT;
+
+import capacitor.android.plugins.R;
 
 public class TwilioVideoActivity extends AppCompatActivity implements org.apache.cordova.twiliovideo.CallActionObserver, MessageCountListener, ChannelListener {
 
@@ -141,6 +145,12 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
     private VideoRenderer localVideoView;
     String imageFilePath;
     private Channel mCurrentChatChannel;
+    AppCompatTextView text_user_name;
+    AppCompatTextView text_user_type;
+    private String userName;
+    private String userImage;
+    private String userType;
+    CircleImageView user_image;
 
 
     @Override
@@ -164,6 +174,10 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
         localVideoActionFab = findViewById(FAKE_R.getId("local_video_action_fab"));
         muteActionFab = findViewById(FAKE_R.getId("mute_action_fab"));
         attachment_fab = findViewById(FAKE_R.getId("attachment_fab"));
+
+        text_user_name = findViewById(FAKE_R.getId("text_user_name"));
+        text_user_type = findViewById(FAKE_R.getId("text_user_type"));
+        user_image = findViewById(FAKE_R.getId("profile_image"));
         //switchAudioActionFab = findViewById(FAKE_R.getId("switch_audio_action_fab"));
 
         /*
@@ -182,6 +196,14 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
         this.accessToken = intent.getStringExtra("token");
         this.roomId = intent.getStringExtra("roomId");
         this.config = (org.apache.cordova.twiliovideo.CallConfig) intent.getSerializableExtra("config");
+        this.userName = intent.getStringExtra("username");
+        this.userImage = intent.getStringExtra("userImage");
+        this.userType = intent.getStringExtra("userType");
+
+        text_user_name.setText(this.userName);
+        text_user_type.setText(this.userType);
+        Glide.with(this).load(Uri.parse(userImage)).placeholder(R.drawable.user).into(user_image);
+        //user_image.setImageURI();
 
         if (this.roomId.contains(":")) {
             String[] separated = this.roomId.split(":");
@@ -231,6 +253,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
 
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openCameraIntent();
@@ -242,7 +265,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
         if (requestCode == MY_GALLERY_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, GALLERY_REQUEST);
             } else {
                 Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
@@ -260,7 +283,7 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
                 createAudioAndVideoTracks();
                 connectToRoom();
             } else {
-                publishEvent(org.apache.cordova.twiliovideo.CallEvent.PERMISSIONS_REQUIRED);
+                publishEvent(CallEvent.PERMISSIONS_REQUIRED);
                 TwilioVideoActivity.this.handleConnectionError(config.getI18nConnectionError());
             }
         }

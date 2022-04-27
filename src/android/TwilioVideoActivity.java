@@ -196,13 +196,13 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
         this.accessToken = intent.getStringExtra("token");
         this.roomId = intent.getStringExtra("roomId");
         this.config = (org.apache.cordova.twiliovideo.CallConfig) intent.getSerializableExtra("config");
-        this.userName = intent.getStringExtra("username");
-        this.userImage = intent.getStringExtra("userImage");
-        this.userType = intent.getStringExtra("userType");
+        // this.userName = intent.getStringExtra("username");
+        // this.userImage = intent.getStringExtra("userImage");
+        // this.userType = intent.getStringExtra("userType");
 
-        text_user_name.setText(this.userName);
-        text_user_type.setText(this.userType);
-        Glide.with(this).load(Uri.parse(userImage)).placeholder(R.drawable.user).into(user_image);
+        // text_user_name.setText(this.userName);
+        // text_user_type.setText(this.userType);
+        // Glide.with(this).load(Uri.parse(userImage)).placeholder(R.drawable.user).into(user_image);
         //user_image.setImageURI();
 
         if (this.roomId.contains(":")) {

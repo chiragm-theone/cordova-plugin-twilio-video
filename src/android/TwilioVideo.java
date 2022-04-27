@@ -66,10 +66,10 @@ public class TwilioVideo extends CordovaPlugin {
             final CordovaPlugin that = this;
             final String token = this.token;
             final String roomId = this.roomId;
-            String[] arrOfStr = this.roomId.split(":");
-            final String userName = arrOfStr[2];
-            final String userImage = arrOfStr[3] + ":" +arrOfStr[4];
-            final String userType = arrOfStr[5];
+            // String[] arrOfStr = this.roomId.split(":");
+            // final String userName = arrOfStr[2];
+            // final String userImage = arrOfStr[3] + ":" +arrOfStr[4];
+            // final String userType = arrOfStr[5];
             if (args.length() > 2) {
                 this.config.parse(args.optJSONObject(2));
             }
@@ -85,9 +85,9 @@ public class TwilioVideo extends CordovaPlugin {
                     intentTwilioVideo.putExtra("token", token);
                     intentTwilioVideo.putExtra("roomId", roomId);
                     intentTwilioVideo.putExtra("config", config);
-                    intentTwilioVideo.putExtra("username", userName);
-                    intentTwilioVideo.putExtra("userImage", userImage);
-                    intentTwilioVideo.putExtra("userType", userType);
+                    // intentTwilioVideo.putExtra("username", userName);
+                    // intentTwilioVideo.putExtra("userImage", userImage);
+                    // intentTwilioVideo.putExtra("userType", userType);
                     that.cordova.getActivity().startActivity(intentTwilioVideo);
                 }
 

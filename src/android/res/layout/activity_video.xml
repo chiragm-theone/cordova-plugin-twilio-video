@@ -15,6 +15,7 @@
         android:paddingStart="30dp"
         android:paddingTop="15dp"
         android:paddingEnd="25dp"
+        android:visibility="gone"
         android:paddingBottom="15dp">
         
 

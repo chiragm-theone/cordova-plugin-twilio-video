@@ -19,13 +19,23 @@ NSString *const HANG_UP = @"HANG_UP";
 NSString *const CLOSED = @"CLOSED";
 NSString *const ATTACHMENT = @"ATTACHMENT";
 
+
 @implementation TwilioVideoViewController
+{
+    UIColor *enabledBackgroundColor, *enabledIconColor, *disabledBackgroundColor, *disabledIconColor;
+}
 
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    enabledBackgroundColor = [TwilioVideoConfig colorFromHexString:@"#8118D9"];
+    enabledIconColor = UIColor.whiteColor;
+    disabledBackgroundColor = [TwilioVideoConfig colorFromHexString:@"#CCCCCC"];
+    disabledIconColor = [TwilioVideoConfig colorFromHexString:@"#666666"];
+
     // UIView *picker = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 100)];
     // picker.backgroundColor=[UIColor whiteColor];
     
@@ -77,27 +87,34 @@ NSString *const ATTACHMENT = @"ATTACHMENT";
     // Preview our local camera track in the local video preview view.
     [self startPreview];
 
+    //------------------------------------------------------------------------------------
+    //New Changes
+    
     // Disconnect and mic button will be displayed when client is connected to a room.
     self.micButton.hidden = YES;
     [self.micButton setFrame:CGRectMake(0, 350, 50, 50)];
-    [self.micButton setImage:[UIImage imageNamed:@"mic"] forState: UIControlStateNormal];
-    [self.micButton setImage:[UIImage imageNamed:@"no_mic"] forState: UIControlStateSelected];
-    self.micButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+    [self.micButton setImage:[[UIImage imageNamed:@"mic"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateNormal];
+    [self.micButton setImage:[[UIImage imageNamed:@"no_mic"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateSelected];
     
-    [self.videoButton setImage:[UIImage imageNamed:@"video"] forState: UIControlStateNormal];
-    [self.videoButton setImage:[UIImage imageNamed:@"no_video"] forState: UIControlStateSelected];
-    self.videoButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
+    [self.videoButton setImage:[[UIImage imageNamed:@"video"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateNormal];
+    [self.videoButton setImage:[[UIImage imageNamed:@"no_video"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateSelected];
+
+    [self.attachmentButton setImage:[[UIImage imageNamed:@"attach"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateNormal];
+    [self.chatButton setImage:[[UIImage imageNamed:@"chat"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateNormal];
+    [self.cameraSwitchButton setImage:[[UIImage imageNamed:@"switch_camera"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState: UIControlStateNormal];
+
+    self.micButton.backgroundColor = enabledBackgroundColor;
+    self.videoButton.backgroundColor = enabledBackgroundColor;
+    self.attachmentButton.backgroundColor = enabledBackgroundColor;
+    self.chatButton.backgroundColor = enabledBackgroundColor;
+    self.cameraSwitchButton.backgroundColor = enabledBackgroundColor;
+
+    self.micButton.tintColor = enabledIconColor;
+    self.videoButton.tintColor = enabledIconColor;
+    self.attachmentButton.tintColor = enabledIconColor;
+    self.chatButton.tintColor = enabledIconColor;
+    self.cameraSwitchButton.tintColor = enabledIconColor;
     
-    
-    
-    [self.attachmentButton setImage:[UIImage imageNamed:@"attach"] forState: UIControlStateSelected];
-    self.attachmentButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-    
-    [self.chatButton setImage:[UIImage imageNamed:@"chat"] forState: UIControlStateSelected];
-    self.chatButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-    
-    
-    self.cameraSwitchButton.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
 
     // Customize button colors
     NSString *primaryColor = [self.config primaryColorHex];
@@ -105,17 +122,18 @@ NSString *const ATTACHMENT = @"ATTACHMENT";
         self.disconnectButton.backgroundColor = [TwilioVideoConfig colorFromHexString:primaryColor];
     }
 
-    NSString *secondaryColor = [self.config secondaryColorHex];
-    if (secondaryColor != NULL) {
-//        245, 246, 253, 0.64
-//        self.micButton.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.5]; //[TwilioVideoConfig colorFromHexString:secondaryColor];
-        self.videoButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
-        self.cameraSwitchButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
-        self.attachmentButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
-        self.chatButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
+//    NSString *secondaryColor = [self.config secondaryColorHex];
+//    if (secondaryColor != NULL) {
+////        245, 246, 253, 0.64
+////        self.micButton.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.5]; //[TwilioVideoConfig colorFromHexString:secondaryColor];
+//        self.videoButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
+//        self.cameraSwitchButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
+//        self.attachmentButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
+//        self.chatButton.backgroundColor = [TwilioVideoConfig colorFromHexString:secondaryColor];
+//
+//    }
+    //------------------------------------------------------------------------------------
 
-    }
-    
     [self setupAlertCtrl];
 }
 
@@ -326,6 +344,7 @@ NSString *const ATTACHMENT = @"ATTACHMENT";
         self.localAudioTrack.enabled = !self.localAudioTrack.isEnabled;
         // If audio not enabled, mic is muted and button crossed out
         [self.micButton setSelected: !self.localAudioTrack.isEnabled];
+        [self updateColorOfButton:self.micButton]; //New Changes
     }
 }
 
@@ -342,6 +361,7 @@ NSString *const ATTACHMENT = @"ATTACHMENT";
     if(self.localVideoTrack){
         self.localVideoTrack.enabled = !self.localVideoTrack.isEnabled;
         [self.videoButton setSelected: !self.localVideoTrack.isEnabled];
+        [self updateColorOfButton:self.videoButton]; //New Changes
     }
 }
 
@@ -886,6 +906,14 @@ NSString *const ATTACHMENT = @"ATTACHMENT";
 
 - (void)cameraSource:(nonnull TVICameraSource *)source didFailWithError:(nonnull NSError *)error {
     [self logMessage:[NSString stringWithFormat:@"Capture failed with error.\ncode = %lu error = %@", error.code, error.localizedDescription]];
+}
+
+//New Changes
+#pragma mark - Update Buttons UI
+
+-(void)updateColorOfButton:(UIButton *)button {
+    button.backgroundColor = button.isSelected ? disabledBackgroundColor : enabledBackgroundColor;
+    button.tintColor = button.isSelected ? disabledIconColor : enabledIconColor;
 }
 
 @end

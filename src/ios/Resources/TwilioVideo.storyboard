@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jSN-F6-Q4K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jSN-F6-Q4K">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -171,11 +171,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="attach.png" width="24" height="24"/>
-        <image name="chat.png" width="24" height="24"/>
-        <image name="end_call.png" width="11.520000457763672" height="11.520000457763672"/>
-        <image name="mic.png" width="6" height="11.520000457763672"/>
-        <image name="switch_camera.png" width="11.520000457763672" height="8.6400003433227539"/>
-        <image name="video.png" width="11.520000457763672" height="6.4800000190734863"/>
+        <image name="attach.png" width="11" height="20"/>
+        <image name="chat.png" width="20" height="20"/>
+        <image name="end_call.png" width="20" height="9.5"/>
+        <image name="mic.png" width="14" height="20"/>
+        <image name="switch_camera.png" width="18" height="16"/>
+        <image name="video.png" width="20" height="14"/>
     </resources>
 </document>

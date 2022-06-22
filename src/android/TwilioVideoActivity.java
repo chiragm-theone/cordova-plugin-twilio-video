@@ -151,6 +151,8 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
     private String userImage;
     private String userType;
     CircleImageView user_image;
+    Boolean isMicEnabled = true;
+    Boolean isVideoEnabled = true;
 
 
     @Override
@@ -914,12 +916,22 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
                         icon = FAKE_R.getDrawable("ic_videocam_green_24px");
                         switchCameraActionFab.show();
                     } else {
-                        icon = FAKE_R.getDrawable("ic_videocam_off_red_24px");
+                        icon = FAKE_R.getDrawable("video_off");
                         switchCameraActionFab.hide();
                     }
 
                     localVideoActionFab.setImageDrawable(
                             ContextCompat.getDrawable(TwilioVideoActivity.this, icon));
+
+                    if (isVideoEnabled) {
+                        isVideoEnabled = false;
+                        localVideoActionFab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                        localVideoActionFab.setImageTintList(ColorStateList.valueOf(Color.parseColor("#666666")));
+                    } else {
+                        isVideoEnabled = true;
+                        localVideoActionFab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#8118D9")));
+                        localVideoActionFab.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                    }
                 }
             }
         };
@@ -938,9 +950,18 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
                     boolean enable = !localAudioTrack.isEnabled();
                     localAudioTrack.enable(enable);
                     int icon = enable ?
-                            FAKE_R.getDrawable("ic_mic_green_24px") : FAKE_R.getDrawable("ic_mic_off_red_24px");
+                            FAKE_R.getDrawable("ic_mic_green_24px") : FAKE_R.getDrawable("mic_off");
                     muteActionFab.setImageDrawable(ContextCompat.getDrawable(
                             TwilioVideoActivity.this, icon));
+                    if (isMicEnabled) {
+                        isMicEnabled = false;
+                        muteActionFab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                        muteActionFab.setImageTintList(ColorStateList.valueOf(Color.parseColor("#666666")));
+                    } else {
+                        isMicEnabled = true;
+                        muteActionFab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#8118D9")));
+                        muteActionFab.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
+                    }
                 }
             }
         };

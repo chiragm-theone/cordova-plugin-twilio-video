@@ -133,6 +133,8 @@
         <resource-file src="src/android/res/drawable/unread_message_badge.xml" target="res/drawable/unread_message_badge.xml" />
         <resource-file src="src/android/res/drawable/ic_app_name.png" target="res/drawable/ic_app_name.png" />
         <resource-file src="src/android/res/drawable/user.png" target="res/drawable/user.png" />
+        <resource-file src="src/android/res/drawable/mic_off.png" target="res/drawable/mic_off.png" />
+        <resource-file src="src/android/res/drawable/video_off.png" target="res/drawable/video_off.png" />
 
 
         <resource-file src="src/android/res/layout/activity_video.xml" target="res/layout/activity_video.xml" />

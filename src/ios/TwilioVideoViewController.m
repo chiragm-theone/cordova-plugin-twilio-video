@@ -669,22 +669,10 @@ NSString *const ATTACHMENT = @"ATTACHMENT";
         return;
     }
     [self logMessage: @"Connection error handled by the plugin"];
-    UIAlertController * alert = [UIAlertController
-                                 alertControllerWithTitle:NULL
-                                 message: message
-                                 preferredStyle:UIAlertControllerStyleAlert];
-
-    //Add Buttons
-
-    UIAlertAction* yesButton = [UIAlertAction
-                                actionWithTitle:[self.config i18nAccept]
-                                style:UIAlertActionStyleDefault
-                                handler: ^(UIAlertAction * action) {
-                                    [self dismiss];
-                                }];
-
-    [alert addAction:yesButton];
-    [self presentViewController:alert animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:NO completion:nil];
+        });
+    
 }
 
 - (void) dismiss {

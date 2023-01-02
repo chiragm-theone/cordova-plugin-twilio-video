@@ -78,6 +78,8 @@ import static org.apache.cordova.twiliovideo.CallEvent.ATTACHMENT;
 
 import capacitor.android.plugins.R;
 
+import android.view.WindowManager;
+
 public class TwilioVideoActivity extends AppCompatActivity implements org.apache.cordova.twiliovideo.CallActionObserver, MessageCountListener, ChannelListener {
 
     /*
@@ -158,6 +160,9 @@ public class TwilioVideoActivity extends AppCompatActivity implements org.apache
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         org.apache.cordova.twiliovideo.TwilioVideoManager.getInstance().setActionListenerObserver(this);
 
